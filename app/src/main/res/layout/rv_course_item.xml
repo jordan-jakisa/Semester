@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="Course"
+            type="com.bawano.semester.models.Course" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_padding"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/content_padding">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/courseIv"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                setImage = "@{Course.image}"
+                tools:src="@drawable/letter_t" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/courseNickNameTv"
+                style="@style/TextAppearance.Material3.TitleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"
+                android:text="@{Course.title}"
+                tools:text="Telecom" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/courseTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@{Course.code}"
+                tools:text="Bachelors of Engineering in Telecommunications Engineering  TETE" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/lecturerTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@{Course.description}"
+                tools:text="By Dr. Jenifer  Lopez" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
