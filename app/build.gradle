@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.6'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
-    implementation 'com.google.android.gms:play-services-ads:21.0.0'
+    //implementation 'com.google.android.gms:play-services-ads:21.0.0'
     var roomVersion = "2.4.2"
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
@@ -65,7 +65,7 @@ dependencies {
 //    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 //    implementation 'com.github.barteksc:pdfium-android:1.9.0'
 
-implementation 'com.github.TalbotGooday:AndroidPdfViewer:Tag'
+    //implementation 'com.github.TalbotGooday:AndroidPdfViewer:Tag'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'

@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bawano.semester.databinding.FragmentGalleryBinding
+import com.bawano.semester.databinding.FragmentCoursesBinding
 
 class CoursesFragment : Fragment() {
 
-    private var b: FragmentGalleryBinding? = null
+    private var b: FragmentCoursesBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,12 +25,10 @@ class CoursesFragment : Fragment() {
         val coursesViewModel =
             ViewModelProvider(this).get(CoursesViewModel::class.java)
 
-        b = FragmentGalleryBinding.inflate(inflater, container, false)
+        b = FragmentCoursesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textGallery
         coursesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
         }
         return root
     }

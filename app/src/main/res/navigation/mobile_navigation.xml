@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/signUpFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -22,4 +22,10 @@
         android:name="com.bawano.semester.ui.units.CourseUnitsFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_course_units" />
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.bawano.semester.accounts.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>

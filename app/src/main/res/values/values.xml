@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr format="color" name="fragmentBackgroundColor"/>
+    <attr format="color" name="buttonBackgroundColor"/>
+    <attr format="color" name="cardBackColor"/>
+    <attr format="color" name="iconColor"/>
+    <attr format="color" name="bottomSheetColor" />
+    <attr format="color" name="actionBarColor"/>
+</resources>
