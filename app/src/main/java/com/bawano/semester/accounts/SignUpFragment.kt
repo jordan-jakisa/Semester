@@ -56,7 +56,8 @@ class SignUpFragment : Fragment() {
 
 
     private fun animateViews() {
-        b.emailLayout.slideInFromLeft()
+        b.nameLayout.slideInFromLeft()
+        b.emailLayout.slideInFromLeft(delay = 200L)
         b.etPasswordLayout.slideInFromLeft(delay = 300L)
         b.etRetypeLayout.slideInFromLeft(delay = 400L)
         b.signUpBtn.slideInFromDown(delay = 1000L)
@@ -72,7 +73,8 @@ class SignUpFragment : Fragment() {
     private fun onViewClick() {
         args.email?.let { b.emailEt.setText(args.email) }
         args.password?.let {
-            b.emailEt.setText(args.password)
+            b.emailEt.setText(args.email)
+            b.etPassword.setText(args.password)
             b.etRetype.setText(args.password)
         }
         b.haveAccount.addLinksToText(Pair("Sign In", View.OnClickListener {
@@ -188,8 +190,8 @@ class SignUpFragment : Fragment() {
                 }
             } else {
                 b.progressBar.visibility = View.GONE
-                (AlertDialog.Builder(requireContext())
-                    .setCancelable(true)).setPositiveButton("dismiss") { dialog, _ ->
+                AlertDialog.Builder(requireContext())
+                    .setCancelable(true).setPositiveButton("dismiss") { dialog, _ ->
                         dialog.dismiss()
                     }.setTitle("Sign Up Failed").setMessage(
                         when (it.exception) {
