@@ -60,5 +60,7 @@
     <string name="email">Email</string>
     <string name="or">OR</string>
     <string name="disclaimer">By signing in you agree to the Terms and Conditions and the Privacy Policy of Semester App</string>
+    <string name="name">Name</string>
+    <string name="your_web_client_id">18094449466-76hgvaea0eigentec4q5i1f8jerdq444.apps.googleusercontent.com</string>
 
 </resources>

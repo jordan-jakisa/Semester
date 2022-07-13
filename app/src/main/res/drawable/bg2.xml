@@ -5,11 +5,11 @@
 
         <rotate
             android:fromDegrees="40"
-            android:pivotX="40%"
-            android:pivotY="45%"
+            android:pivotX="50%"
+            android:pivotY="50%"
             android:toDegrees="0">
 
-            <shape android:shape="rectangle">
+            <shape android:shape="oval">
 
                 <solid android:color="@color/purple_700" />
                 <corners android:bottomRightRadius="500dp" />

@@ -6,10 +6,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -18,16 +16,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorListener
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import java.io.File
 
 
 const val RECORD_REQUEST = 1
-val IS_OKAY_KEY = booleanPreferencesKey("is_okay")
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore("APP_PREFERENCES")
 
@@ -35,44 +34,28 @@ fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_LONG) =
     Toast.makeText(this, text, duration).show()
 
 
-fun Context.isConnected(): Boolean {
-    val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val caps = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
-    return caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-            caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-            caps.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+fun Context.observeConnection(networkCallback: ConnectivityManager.NetworkCallback) {
+    val networkRequest = NetworkRequest.Builder()
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+        .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+        .build()
+
+    val connectivityManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        this.getSystemService(ConnectivityManager::class.java) as ConnectivityManager
+    } else {
+        this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
+    connectivityManager.requestNetwork(networkRequest, networkCallback)
 }
 
-fun String.removeSpaces() = this.filter { !it.isWhitespace() }
-
-
-fun Activity.requestAudioPermission() = ActivityCompat.requestPermissions(
-    this,
-    Array(1) { Manifest.permission.RECORD_AUDIO },
-    RECORD_REQUEST
-)
-
-fun Activity.hasAudioPermission(): Boolean =
-    ContextCompat.checkSelfPermission(
-        this,
-        Manifest.permission.RECORD_AUDIO
-    ) == PackageManager.PERMISSION_GRANTED
-
-fun View.fadeIn(duration: Long) {
+fun View.fadeIn(duration: Long = 400L, delay: Long = 0L) {
     this.visibility = View.VISIBLE
     this.alpha = 0f
-    ViewCompat.animate(this).alpha(1f).setDuration(duration).setListener(object : ViewPropertyAnimatorListener {
-        override fun onAnimationStart(view: View) {
-        }
-
-        override fun onAnimationEnd(view: View) {
-        }
-
-        override fun onAnimationCancel(view: View) {}
-    }).start()
+    ViewCompat.animate(this).alpha(1f).setDuration(duration).setStartDelay(delay).start()
 }
 
-fun View.fadeOut(duration: Long, delay: Long = 0) {
+fun View.fadeOut(duration: Long = 1000L, delay: Long = 0) {
     this.alpha = 1f
     ViewCompat.animate(this).alpha(0f).setStartDelay(delay).setDuration(duration).setListener(object :
         ViewPropertyAnimatorListener {
@@ -92,7 +75,16 @@ fun View.fadeOut(duration: Long, delay: Long = 0) {
     })
 }
 
-fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
+fun Context.getPdfImageFile(name: String): File? {
+    val folder = File(this.cacheDir, "/PDF")
+    if (folder.exists()) {
+        val ff = File(folder, "/images")
+        if (ff.exists()) return File(ff, "$name.jpg")
+    }
+    return null
+}
+
+fun TextView.addLinksToText(vararg links: Pair<String, View.OnClickListener>) {
     val spannableString = SpannableString(this.text)
     var startIndexOfLink = -1
     for (link in links) {
@@ -121,5 +113,20 @@ fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
     this.movementMethod =
         LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
     this.setText(spannableString, TextView.BufferType.SPANNABLE)
+
+
 }
 
+fun View.slideInFromLeft(duration:Long = 1000L, delay: Long = 0L){
+    this.visibility = View.VISIBLE
+    this.translationX = 800F
+    this.alpha = 0F
+    this.animate().translationX(0F).alpha(1F).setDuration(duration).setStartDelay(delay).start()
+}
+
+fun View.slideInFromDown(duration:Long = 1000L, delay: Long = 0L){
+    this.visibility = View.VISIBLE
+    this.translationY = 800F
+    this.alpha = 0F
+    this.animate().translationY(0F).alpha(1F).setDuration(1000).setStartDelay(1000).start()
+}
