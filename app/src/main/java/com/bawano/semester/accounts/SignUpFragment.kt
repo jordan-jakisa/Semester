@@ -57,11 +57,12 @@ class SignUpFragment : Fragment() {
 
     private fun animateViews() {
         b.nameLayout.slideInFromLeft()
+        b.shapeableImageView.translateYFromTo(from = 200F, to = 0F)
         b.emailLayout.slideInFromLeft(delay = 200L)
         b.etPasswordLayout.slideInFromLeft(delay = 300L)
         b.etRetypeLayout.slideInFromLeft(delay = 400L)
         b.signUpBtn.slideInFromDown(delay = 1000L)
-        b.googleSignInButton.slideInFromDown(delay = 1300L)
+        b.googleSignInButton.slideInFromDown(delay = 1000L)
         b.v1.fadeIn(delay = 1300L)
         b.v2.fadeIn(delay = 1300L)
         b.or.fadeIn(delay = 1300L)

@@ -128,5 +128,11 @@ fun View.slideInFromDown(duration:Long = 1000L, delay: Long = 0L){
     this.visibility = View.VISIBLE
     this.translationY = 800F
     this.alpha = 0F
-    this.animate().translationY(0F).alpha(1F).setDuration(1000).setStartDelay(1000).start()
+    this.animate().translationY(0F).alpha(1F).setDuration(duration).setStartDelay(delay).start()
+}
+fun View.translateYFromTo(duration:Long = 1000L, delay: Long = 0L, from: Float, to: Float){
+    this.visibility = View.VISIBLE
+    this.translationY = from
+    this.alpha = 0f
+    this.animate().alpha(1F).translationY(to).setDuration(duration).setStartDelay(delay).start()
 }

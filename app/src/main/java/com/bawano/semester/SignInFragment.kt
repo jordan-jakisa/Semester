@@ -1,20 +1,16 @@
 package com.bawano.semester
 
-import android.R
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.IntentSender
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -62,10 +58,12 @@ class SignInFragment : Fragment() {
 
     private fun animateViews() {
         b.emailLayout.slideInFromLeft()
+        b.shapeableImageView.translateYFromTo(from = -100F, to = 0F)
         b.etPasswordLayout.slideInFromLeft(delay = 300L)
         b.signInBtn.slideInFromDown(delay = 1000L)
-        b.googleSignInButton.slideInFromDown(delay = 1300L)
+        b.googleSignInButton.slideInFromDown(delay = 1000L)
         b.v1.fadeIn(delay = 1300L)
+        b.recoverPassword.fadeIn(duration = 700L, delay = 1000L)
         b.v2.fadeIn(delay = 1300L)
         b.or.fadeIn(delay = 1300L)
         b.haveAccount.fadeIn(delay = 1300L)
@@ -79,7 +77,7 @@ class SignInFragment : Fragment() {
             b.emailEt.setText(args.email)
             b.etPassword.setText(args.password)
         }
-        b.haveAccount.addLinksToText(Pair("Sign In", View.OnClickListener {
+        b.haveAccount.addLinksToText(Pair("Register", View.OnClickListener {
             val email = b.emailEt.text.toString()
             val password = b.etPassword.text.toString()
             val action =
