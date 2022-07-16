@@ -1,4 +1,4 @@
-package com.bawano.semester
+package com.bawano.semester.accounts
 
 import android.app.AlertDialog
 import android.content.IntentSender
@@ -17,7 +17,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bawano.semester.R
 import com.bawano.semester.databinding.FragmentSignInBinding
+import com.bawano.semester.models.User
 import com.bawano.semester.utils.*
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
@@ -29,6 +31,9 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 
 class SignInFragment : Fragment() {
@@ -60,8 +65,8 @@ class SignInFragment : Fragment() {
         b.emailLayout.slideInFromLeft()
         b.shapeableImageView.translateYFromTo(from = -100F, to = 0F)
         b.etPasswordLayout.slideInFromLeft(delay = 300L)
-        b.signInBtn.slideInFromDown(delay = 1000L)
-        b.googleSignInButton.slideInFromDown(delay = 1000L)
+        b.signInBtn.slideInFromDown(delay = 500L)
+        b.googleSignInButton.slideInFromDown(delay = 500L)
         b.v1.fadeIn(delay = 1300L)
         b.recoverPassword.fadeIn(duration = 700L, delay = 1000L)
         b.v2.fadeIn(delay = 1300L)
@@ -276,6 +281,29 @@ class SignInFragment : Fragment() {
                                 auth.signInWithCredential(firebaseCredential)
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
+                                            Fp.userPath().addValueEventListener(object : ValueEventListener{
+                                                override fun onDataChange(snapshot: DataSnapshot) {
+                                                    if (!snapshot.exists()) {
+                                                        val user = auth.currentUser
+                                                        val person =
+                                                            user!!.displayName?.let { name ->
+                                                                User(
+                                                                    name,
+                                                                    user.uid
+                                                                )
+                                                            }
+                                                        Fp.userPath().setValue(person)
+                                                        findNavController().navigate(R.id.action_signInFragment_to_nav_home)
+
+                                                        requireContext().toast("One-tap signup failed try again.")
+                                                    }
+                                                }
+
+                                                override fun onCancelled(error: DatabaseError) {
+                                                    requireContext().toast("One-tap signup failed try again.")
+                                                }
+
+                                            })
                                             findNavController().navigate(R.id.action_signInFragment_to_nav_home)
                                         } else {
                                             b.progressBar.visibility = View.GONE

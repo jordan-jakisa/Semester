@@ -2,6 +2,7 @@ package com.bawano.semester.utils
 
 import com.bawano.semester.models.Course
 import com.bawano.semester.models.CourseUnit
+import com.bawano.semester.models.LastPage
 
 interface Utils {
     interface OnAccount {
@@ -11,6 +12,10 @@ interface Utils {
         fun signUpWith(email: String?, password: String?)
         fun openProfile()
         fun signInSuccess()
+    }
+
+    interface FragmentPage{
+        fun setLastPage(page: LastPage)
     }
 
     interface OnPdf {

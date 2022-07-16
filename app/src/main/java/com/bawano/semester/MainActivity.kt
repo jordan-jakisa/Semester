@@ -14,12 +14,19 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.bawano.semester.databinding.ActivityMainBinding
+import com.bawano.semester.models.LastPage
+import com.bawano.semester.utils.PreferenceManager
+import com.bawano.semester.utils.Utils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , Utils.FragmentPage{
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var b: ActivityMainBinding
+    private lateinit var lastPage: LastPage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +80,17 @@ class MainActivity : AppCompatActivity() {
         // lost network connection
         override fun onLost(network: Network) {
             super.onLost(network)
+        }
+    }
+
+    override fun setLastPage(page: LastPage) {
+        lastPage = page
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lifecycleScope.launch(Dispatchers.IO){
+            PreferenceManager(this@MainActivity).putLastPage(lastPage)
         }
     }
 }

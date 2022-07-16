@@ -1,42 +1,48 @@
 package com.bawano.semester.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bawano.semester.databinding.FragmentHomeBinding
+import com.bawano.semester.utils.Constants.COURSES
+import com.bawano.semester.utils.Constants.DETAILS
+import com.bawano.semester.utils.Constants.PDFVIEW
+import com.bawano.semester.utils.PreferenceManager
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var b: FragmentHomeBinding
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        b = FragmentHomeBinding.inflate(inflater)
+        return b.root
+    }
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        lifecycleScope.launch{
+            PreferenceManager(context).lastPage.collect {
+                val action = when(it.name){
+                    COURSES -> HomeFragmentDirections.actionNavHomeToCourses(it)
+                    PDFVIEW -> HomeFragmentDirections.actionNavHomeToPdfViewFragment(it)
+                    DETAILS -> HomeFragmentDirections.actionNavHomeToDetailsFragment(it)
+                    else -> HomeFragmentDirections.actionNavHomeToCourseUnits(it)
+                }
+                findNavController().navigate(action)
+            }
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
         }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

@@ -45,7 +45,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.6'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation 'com.google.code.gson:gson:2.9.0'
     //implementation 'com.google.android.gms:play-services-ads:21.0.0'
     var roomVersion = "2.4.2"
     implementation("androidx.room:room-runtime:$roomVersion")

@@ -23,12 +23,16 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 
 
 const val RECORD_REQUEST = 1
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore("APP_PREFERENCES")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore("LAST_PAGE")
 
 fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_LONG) =
     Toast.makeText(this, text, duration).show()
@@ -57,22 +61,23 @@ fun View.fadeIn(duration: Long = 400L, delay: Long = 0L) {
 
 fun View.fadeOut(duration: Long = 1000L, delay: Long = 0) {
     this.alpha = 1f
-    ViewCompat.animate(this).alpha(0f).setStartDelay(delay).setDuration(duration).setListener(object :
-        ViewPropertyAnimatorListener {
-        override fun onAnimationStart(view: View) {
-            @Suppress("DEPRECATION")
-            view.isDrawingCacheEnabled = true
-        }
+    ViewCompat.animate(this).alpha(0f).setStartDelay(delay).setDuration(duration)
+        .setListener(object :
+            ViewPropertyAnimatorListener {
+            override fun onAnimationStart(view: View) {
+                @Suppress("DEPRECATION")
+                view.isDrawingCacheEnabled = true
+            }
 
-        override fun onAnimationEnd(view: View) {
-            view.visibility = View.INVISIBLE
-            view.alpha = 0f
-            @Suppress("DEPRECATION")
-            view.isDrawingCacheEnabled = false
-        }
+            override fun onAnimationEnd(view: View) {
+                view.visibility = View.INVISIBLE
+                view.alpha = 0f
+                @Suppress("DEPRECATION")
+                view.isDrawingCacheEnabled = false
+            }
 
-        override fun onAnimationCancel(view: View) {}
-    })
+            override fun onAnimationCancel(view: View) {}
+        })
 }
 
 fun Context.getPdfImageFile(name: String): File? {
@@ -117,22 +122,42 @@ fun TextView.addLinksToText(vararg links: Pair<String, View.OnClickListener>) {
 
 }
 
-fun View.slideInFromLeft(duration:Long = 1000L, delay: Long = 0L){
+fun View.slideInFromLeft(duration: Long = 1000L, delay: Long = 0L) {
     this.visibility = View.VISIBLE
     this.translationX = 800F
     this.alpha = 0F
     this.animate().translationX(0F).alpha(1F).setDuration(duration).setStartDelay(delay).start()
 }
 
-fun View.slideInFromDown(duration:Long = 1000L, delay: Long = 0L){
+fun View.slideInFromDown(duration: Long = 1000L, delay: Long = 0L) {
     this.visibility = View.VISIBLE
     this.translationY = 800F
     this.alpha = 0F
     this.animate().translationY(0F).alpha(1F).setDuration(duration).setStartDelay(delay).start()
 }
-fun View.translateYFromTo(duration:Long = 1000L, delay: Long = 0L, from: Float, to: Float){
+
+fun View.pulsate(scope: CoroutineScope) {
+    scope.launch {
+        var t = true
+        this@pulsate.post {
+            this@pulsate.animate().alpha(if (t) 1f else 0.01f).setDuration(1500)
+                .start()
+        }
+        t = !t
+    }
+    // TODO: finish this
+}
+
+
+fun View.translateYFromTo(
+    duration: Long = 1000L,
+    delay: Long = 0L,
+    from: Float,
+    to: Float,
+    alpha: Float = 0f
+) {
     this.visibility = View.VISIBLE
     this.translationY = from
-    this.alpha = 0f
+    this.alpha = alpha
     this.animate().alpha(1F).translationY(to).setDuration(duration).setStartDelay(delay).start()
 }

@@ -28,8 +28,9 @@ object Constants {
     const val FIREBASE_PHONE_FIELD = "phoneNumber"
 
     //FRAGMENTS
-    const val SIGN_IN_FRAGMENT = "Sign in fragment"
-    const val SIGN_UP_FRAGMENT = "Sign up fragment"
-    const val PROFILE_FRAGMENT = "Profile fragment"
-    const val EDIT_PROFILE_FRAGMENT = "Edit profile fragment"
+
+    const val COURSES = "COURSES"
+    const val COURSE_UNITS = "COURSE UNITS"
+    const val DETAILS = "DETAILS"
+    const val PDFVIEW = "PDFVIEW"
 }

@@ -47,7 +47,6 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         b = FragmentSignUpBinding.inflate(inflater)
         animateViews()
         onViewClick()
@@ -57,12 +56,12 @@ class SignUpFragment : Fragment() {
 
     private fun animateViews() {
         b.nameLayout.slideInFromLeft()
-        b.shapeableImageView.translateYFromTo(from = 200F, to = 0F)
-        b.emailLayout.slideInFromLeft(delay = 200L)
+        b.shapeableImageView.translateYFromTo(from = 200F, to = 0F, alpha = 1f)
+        b.emailLayout.slideInFromLeft(delay = 200L )
         b.etPasswordLayout.slideInFromLeft(delay = 300L)
-        b.etRetypeLayout.slideInFromLeft(delay = 400L)
-        b.signUpBtn.slideInFromDown(delay = 1000L)
-        b.googleSignInButton.slideInFromDown(delay = 1000L)
+        b.etRetypeLayout.slideInFromLeft(delay = 350L)
+        b.signUpBtn.slideInFromDown(delay = 500L)
+        b.googleSignInButton.slideInFromDown(delay = 500L)
         b.v1.fadeIn(delay = 1300L)
         b.v2.fadeIn(delay = 1300L)
         b.or.fadeIn(delay = 1300L)

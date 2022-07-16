@@ -3,68 +3,116 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/signUpFragment">
+    app:startDestination="@id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.bawano.semester.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_course_units"
+            app:destination="@id/nav_course_units" />
+        <action
+            android:id="@+id/action_nav_home_to_courses"
+            app:destination="@id/nav_courses" />
+        <action
+            android:id="@+id/action_nav_home_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_pdfViewFragment"
+            app:destination="@id/pdfViewFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_courses"
         android:name="com.bawano.semester.ui.courses.CoursesFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_courses" />
+        android:label="@string/courses"
+        tools:layout="@layout/fragment_courses" >
+        <argument
+            android:name="lastPage"
+            app:argType="com.bawano.semester.models.LastPage"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_course_units"
         android:name="com.bawano.semester.ui.units.CourseUnitsFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_course_units" />
+        android:label="@string/course_units"
+        tools:layout="@layout/fragment_course_units">
+        <argument
+            android:name="lastPage"
+            android:defaultValue="@null"
+            app:argType="com.bawano.semester.models.LastPage"
+            app:nullable="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.bawano.semester.accounts.SignUpFragment"
         android:label="Sign Up"
-        tools:layout="@layout/fragment_sign_up" >
+        tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
         <argument
             android:name="email"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <argument
             android:name="password"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_signUpFragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.bawano.semester.SignInFragment"
+        android:name="com.bawano.semester.accounts.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
         <argument
             android:name="email"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <argument
             android:name="password"
+            android:defaultValue="@null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_signInFragment_to_nav_home"
             app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.bawano.semester.ui.details.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details">
+
+        <argument
+            android:name="lastPage"
+            android:defaultValue="@null"
+            app:argType="com.bawano.semester.models.LastPage"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/pdfViewFragment"
+        android:name="com.bawano.semester.ui.pdf.PdfViewFragment"
+        android:label="fragment_pdf_view"
+        tools:layout="@layout/fragment_pdf_view">
+        <argument
+            android:name="lastPage"
+            android:defaultValue="@null"
+            app:argType="com.bawano.semester.models.LastPage"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:layout_marginBottom="4dp"
-                    android:text="@{CourseUnit.code}"
+                    android:text="@{CourseUnit.unitCode}"
                     tools:text="TETE 2203" />
 
                 <com.google.android.material.textview.MaterialTextView

@@ -10,9 +10,9 @@
         tools:context=".accounts.SignUpFragment">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/shapeableImageView"
+            android:id="@+id/shapeableImageView1"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="195dp"
             android:scaleType="centerCrop"
             android:src="@drawable/bg1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,9 +20,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/shapeableImageView1"
+            android:id="@+id/shapeableImageView"
             android:layout_width="match_parent"
-            android:layout_height="195dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/bg1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -186,18 +186,24 @@
             app:layout_constraintTop_toTopOf="@id/or" />
 
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/google_sign_in_button"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/google_sign_in_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/or" />
+            app:layout_constraintTop_toBottomOf="@+id/or" >
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/google_sign_in_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sign_in_google"/>
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/disclaimer"

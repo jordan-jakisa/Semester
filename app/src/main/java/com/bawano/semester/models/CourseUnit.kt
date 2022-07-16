@@ -10,23 +10,21 @@ class CourseUnit(
     var title: String?,
     var courseCode: String?,
     var creditUnits: Int,
-    var code: String?,
+    var unitCode: String?,
     var description: String?,
-    var role: Role?,
+    var tier: Tier?,
     var image: String? = null,
-    var grade: Grade? = null,
-    private var notes: List<String>?
 ) : Parcelable {
     val isEmpty: Boolean
-        get() = code == null || courseCode == null || creditUnits == 0 || role == null
+        get() = unitCode == null || courseCode == null || creditUnits == 0 || tier == null
 }
 
 object CourseUnitCallback : DiffUtil.ItemCallback<CourseUnit>() {
     override fun areItemsTheSame(oldItem: CourseUnit, newItem: CourseUnit) = oldItem == newItem
-    override fun areContentsTheSame(oldItem: CourseUnit, newItem: CourseUnit) = oldItem.code == newItem.code
+    override fun areContentsTheSame(oldItem: CourseUnit, newItem: CourseUnit) = oldItem.unitCode == newItem.unitCode
 }
 
-enum class Role {
+enum class Tier {
     CORE, ELECTIVE
 }
 

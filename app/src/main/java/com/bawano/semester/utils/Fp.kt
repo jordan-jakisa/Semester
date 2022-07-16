@@ -29,7 +29,7 @@ object Fp {
 
     fun courseUnitPath(courseUnit: CourseUnit) =
         database().child(KYAMBOGO).child(COURSE_UNITS_NODE).child(courseUnit.courseCode!!)
-            .child(courseUnit.code!!)
+            .child(courseUnit.unitCode!!)
 
 
     fun courseUnitPath(courseCode: String, unitCode: String) =
