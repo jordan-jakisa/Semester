@@ -29,20 +29,4 @@ class HomeFragment : Fragment() {
         return b.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        lifecycleScope.launch{
-            PreferenceManager(context).lastPage.collect {
-                val action = when(it.name){
-                    COURSES -> HomeFragmentDirections.actionNavHomeToCourses(it)
-                    PDFVIEW -> HomeFragmentDirections.actionNavHomeToPdfViewFragment(it)
-                    DETAILS -> HomeFragmentDirections.actionNavHomeToDetailsFragment(it)
-                    else -> HomeFragmentDirections.actionNavHomeToCourseUnits(it)
-                }
-                findNavController().navigate(action)
-            }
-
-        }
-    }
-
 }
