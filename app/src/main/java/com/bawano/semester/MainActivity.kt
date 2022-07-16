@@ -5,6 +5,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity(), Utils.FragmentPage {
                         Constants.COURSES -> R.id.nav_courses
                         Constants.PDFVIEW -> R.id.pdfViewFragment
                         Constants.DETAILS -> R.id.detailsFragment
-                        else -> R.id.nav_course_units
+                        else -> R.id.nav_courses
                     }
                 )
                 it.navState?.let { bundle ->
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity(), Utils.FragmentPage {
                 )
                 setupActionBarWithNavController(navController, appBarConfiguration)
                 navView.setupWithNavController(navController)
+                b.appBarMain.progressBar.visibility = View.GONE
             }
         }
     }

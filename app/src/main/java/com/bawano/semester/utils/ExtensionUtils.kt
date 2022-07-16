@@ -2,12 +2,15 @@ package com.bawano.semester.utils
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.icu.text.CaseMap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
+import android.os.Message
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -23,6 +26,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.FirebaseAuthException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -52,6 +57,17 @@ fun Context.observeConnection(networkCallback: ConnectivityManager.NetworkCallba
     }
     connectivityManager.requestNetwork(networkRequest, networkCallback)
 }
+
+fun Context.errorDialog(title: String, message: String) =
+    AlertDialog.Builder(this)
+        .setCancelable(true)
+        .setPositiveButton("dismiss") { dialog, _ ->
+            dialog.dismiss()
+        }
+        .setTitle(title).setMessage(message)
+        .create()
+        .show()
+
 
 fun View.fadeIn(duration: Long = 400L, delay: Long = 0L) {
     this.visibility = View.VISIBLE

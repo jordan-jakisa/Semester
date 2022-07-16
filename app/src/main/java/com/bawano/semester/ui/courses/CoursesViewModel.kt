@@ -1,13 +1,12 @@
 package com.bawano.semester.ui.courses
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bawano.semester.repo.Repository
 
 class CoursesViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+    private val repository by lazy {
+        Repository()
     }
-    val text: LiveData<String> = _text
+
+    fun fetchCourses() = repository.fetchCourses()
 }

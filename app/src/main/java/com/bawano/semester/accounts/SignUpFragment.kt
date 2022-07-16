@@ -57,7 +57,7 @@ class SignUpFragment : Fragment() {
     private fun animateViews() {
         b.nameLayout.slideInFromLeft()
         b.shapeableImageView.translateYFromTo(from = 200F, to = 0F, alpha = 1f)
-        b.emailLayout.slideInFromLeft(delay = 200L )
+        b.emailLayout.slideInFromLeft(delay = 200L)
         b.etPasswordLayout.slideInFromLeft(delay = 300L)
         b.etRetypeLayout.slideInFromLeft(delay = 350L)
         b.signUpBtn.slideInFromDown(delay = 500L)
@@ -88,7 +88,7 @@ class SignUpFragment : Fragment() {
             // TODO: privacy policy and terms and conditions
         )
         b.googleSignInButton.setOnClickListener {
-            if(showOneTapUI) startOneTapSignInFlow()
+            if (showOneTapUI) startOneTapSignInFlow()
         }
 
         b.signUpBtn.setOnClickListener {
@@ -276,22 +276,24 @@ class SignUpFragment : Fragment() {
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
                                             val user = auth.currentUser
-                                            val person = user!!.displayName?.let { name -> User(name, user.uid) }
+                                            val person = user!!.displayName?.let { name ->
+                                                User(
+                                                    name,
+                                                    user.uid
+                                                )
+                                            }
                                             Fp.userPath().setValue(person)
                                             findNavController().navigate(R.id.action_signUpFragment_to_nav_home)
                                         } else {
                                             b.progressBar.visibility = View.GONE
-                                            (AlertDialog.Builder(requireContext())
-                                                .setCancelable(true)).setPositiveButton("dismiss") { dialog, _ ->
-                                                    dialog.dismiss()
+                                            requireContext().errorDialog(
+                                                "Sign Up Failed",
+                                                when (task.exception) {
+                                                    null -> "An unknown error occurred"
+                                                    is FirebaseNetworkException -> "Please Connect to the internet"
+                                                    else -> Fp.getErrorString((task.exception as FirebaseAuthException).errorCode)
                                                 }
-                                                .setTitle("Sign Up Failed").setMessage(
-                                                    when (task.exception) {
-                                                        null -> "An unknown error occurred"
-                                                        is FirebaseNetworkException -> "Please Connect to the internet"
-                                                        else -> Fp.getErrorString((task.exception as FirebaseAuthException).errorCode)
-                                                    }
-                                                ).create().show()
+                                            )
                                         }
                                     }
 
