@@ -16,28 +16,22 @@ import kotlinx.parcelize.Parcelize
 data class Course(
     var title: String = "",
     var nickname: String = "",
-    var courseCode: String = "",
+    var code: String = "",
     var image: String = "",
     var description: String = ""
 ) : Parcelable
 
 object CourseCallback : DiffUtil.ItemCallback<Course>() {
+
     override fun areItemsTheSame(oldItem: Course, newItem: Course) = oldItem == newItem
     override fun areContentsTheSame(oldItem: Course, newItem: Course) =
-        oldItem.courseCode == newItem.courseCode
+        oldItem.code == newItem.code
 }
 
 class CourseAdapter(fragment: Fragment) :
     ListAdapter<Course, CourseAdapter.CourseViewHolder>(CourseCallback) {
-    private val fragment: Fragment? = null
     private var courseItemClick: Utils.OnCourse
-    private val flag = 0
-
-    companion object {
-        private const val HEADER = 1
-        private const val ENROLL = 2
-        const val COURSE = 3
-    }
+    private var position=0
 
     init {
         courseItemClick = fragment as Utils.OnCourse
@@ -47,8 +41,10 @@ class CourseAdapter(fragment: Fragment) :
         CourseViewHolder.from(parent, courseItemClick)
 
 
-    override fun onBindViewHolder(holder: CourseViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
         holder.bind(getItem(position))
+        this.position = holder.adapterPosition
+    }
 
 
     class CourseViewHolder private constructor(
@@ -64,9 +60,7 @@ class CourseAdapter(fragment: Fragment) :
 
         companion object {
             fun from(parent: ViewGroup, courseItemClick: Utils.OnCourse): CourseViewHolder {
-                val binding = RvCourseItemBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
+                val binding = RvCourseItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return CourseViewHolder(binding, courseItemClick)
             }
         }
@@ -77,6 +71,13 @@ class CourseAdapter(fragment: Fragment) :
         }
     }
 
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        courseItemClick.setPosition(position)
+
+    }
+
 }
+
 
 

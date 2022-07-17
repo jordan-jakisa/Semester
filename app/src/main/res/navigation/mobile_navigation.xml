@@ -33,6 +33,9 @@
             app:argType="com.bawano.semester.models.LastPage"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_nav_courses_to_nav_course_units"
+            app:destination="@id/nav_course_units" />
     </fragment>
 
     <fragment
@@ -41,10 +44,11 @@
         android:label="@string/course_units"
         tools:layout="@layout/fragment_course_units">
         <argument
-            android:name="lastPage"
-            android:defaultValue="@null"
-            app:argType="com.bawano.semester.models.LastPage"
-            app:nullable="true" />
+            android:name="course"
+            app:argType="com.bawano.semester.models.Course" />
+        <action
+            android:id="@+id/action_nav_course_units_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
@@ -96,22 +100,17 @@
         android:name="com.bawano.semester.ui.details.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details">
-
         <argument
-            android:name="lastPage"
-            android:defaultValue="@null"
-            app:argType="com.bawano.semester.models.LastPage"
-            app:nullable="true" />
+            android:name="courseUnit"
+            app:argType="com.bawano.semester.models.CourseUnit" />
+        <action
+            android:id="@+id/action_detailsFragment_to_pdfViewFragment"
+            app:destination="@id/pdfViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/pdfViewFragment"
         android:name="com.bawano.semester.ui.pdf.PdfViewFragment"
         android:label="fragment_pdf_view"
         tools:layout="@layout/fragment_pdf_view">
-        <argument
-            android:name="lastPage"
-            android:defaultValue="@null"
-            app:argType="com.bawano.semester.models.LastPage"
-            app:nullable="true" />
     </fragment>
 </navigation>

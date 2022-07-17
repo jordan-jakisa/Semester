@@ -1,6 +1,7 @@
 package com.bawano.semester.repo
 
 import com.bawano.semester.models.Course
+import com.bawano.semester.models.CourseUnit
 import com.bawano.semester.utils.Fp
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -28,5 +29,25 @@ class Repository {
         }
         Fp.allCoursePath().addValueEventListener(listener)
         awaitClose{ Fp.allCoursePath().removeEventListener(listener)}
+    }
+
+    fun fetchCourseUnits(courseCode: String) = callbackFlow<Result<List<CourseUnit>>> {
+        val listener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val items = snapshot.children.map { ds ->
+                    ds.getValue(CourseUnit::class.java)
+                }
+                this@callbackFlow.trySendBlocking(Result.success(items.filterNotNull()))
+                Fp.allCourseUnitPath(courseCode).removeEventListener(this)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                this@callbackFlow.trySendBlocking(Result.failure(error.toException()))
+                Fp.allCourseUnitPath(courseCode).removeEventListener(this)
+            }
+
+        }
+        Fp.allCourseUnitPath(courseCode).addValueEventListener(listener)
+        awaitClose{ Fp.allCourseUnitPath(courseCode).removeEventListener(listener)}
     }
 }

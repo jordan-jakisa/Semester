@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:text="@{Course.courseCode}"
+                android:text="@{Course.code}"
                 tools:text="Bachelors of Engineering in Telecommunications Engineering  TETE" />
 
             <com.google.android.material.textview.MaterialTextView

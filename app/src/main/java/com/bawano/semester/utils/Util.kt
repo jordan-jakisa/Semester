@@ -16,10 +16,12 @@ interface Utils {
 
     interface OnCourse {
         fun click(course: Course)
+        fun setPosition(pos: Int)
     }
 
     interface OnCourseUnit {
         fun click(courseUnit: CourseUnit)
+        fun setPosition(pos: Int)
     }
 
     interface ActionBarVisibility {

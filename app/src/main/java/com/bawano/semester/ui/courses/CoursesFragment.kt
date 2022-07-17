@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bawano.semester.databinding.FragmentCoursesBinding
@@ -45,6 +46,9 @@ class CoursesFragment : Fragment(), Utils.OnCourse {
     }
 
 
+    private lateinit var courseAdapter: CourseAdapter
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,7 +57,7 @@ class CoursesFragment : Fragment(), Utils.OnCourse {
         val vm = ViewModelProvider(this)[CoursesViewModel::class.java]
         b = FragmentCoursesBinding.inflate(inflater, container, false)
         b.shimmerLayout.startShimmer()
-        val courseAdapter = CourseAdapter(this)
+        courseAdapter = CourseAdapter(this)
         b.recyclerView.adapter = courseAdapter
         b.recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -67,8 +71,9 @@ class CoursesFragment : Fragment(), Utils.OnCourse {
                             courseAdapter.submitList(list)
                         }
                     }
-                    it.isFailure -> requireContext().errorDialog("Couldn't Fetch Courses",
-                        (it.exceptionOrNull()?:"Unknown error") as String
+                    it.isFailure -> requireContext().errorDialog(
+                        "Couldn't Fetch Courses",
+                        (it.exceptionOrNull() ?: "Unknown error") as String
                     )
                 }
 
@@ -82,6 +87,12 @@ class CoursesFragment : Fragment(), Utils.OnCourse {
     }
 
     override fun click(course: Course) {
+        val action = CoursesFragmentDirections.actionNavCoursesToNavCourseUnits(course = course)
+        findNavController().navigate(action)
+    }
+
+    override fun setPosition(pos: Int) {
+        scroll = pos
     }
 
     override fun onDestroyView() {
