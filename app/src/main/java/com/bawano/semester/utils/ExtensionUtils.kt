@@ -1,38 +1,30 @@
 package com.bawano.semester.utils
 
-import android.Manifest
-import android.app.Activity
+import android.R
 import android.app.AlertDialog
 import android.content.Context
-import android.content.pm.PackageManager
-import android.icu.text.CaseMap
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
-import android.os.Message
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorListener
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuthException
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
+import java.lang.reflect.Field
+import java.util.*
 
 
 const val RECORD_REQUEST = 1
@@ -68,6 +60,17 @@ fun Context.errorDialog(title: String, message: String) =
         .create()
         .show()
 
+fun String.onlyFirstLetters(): String{
+    val words = this.split(' ')
+    var s = ""
+    for (w in words ) s += w.first()
+    return s.uppercase(Locale.getDefault())
+}
+
+fun String.letterDrawable() =
+    TextDraw(this, color = ColorGenerator.MATERIAL.getColor(this))
+
+
 
 fun View.fadeIn(duration: Long = 400L, delay: Long = 0L) {
     this.visibility = View.VISIBLE
@@ -86,7 +89,7 @@ fun View.fadeOut(duration: Long = 1000L, delay: Long = 0) {
             }
 
             override fun onAnimationEnd(view: View) {
-                view.visibility = View.INVISIBLE
+                view.visibility = View.GONE
                 view.alpha = 0f
                 @Suppress("DEPRECATION")
                 view.isDrawingCacheEnabled = false

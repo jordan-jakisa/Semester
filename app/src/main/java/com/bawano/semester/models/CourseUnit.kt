@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bawano.semester.databinding.RvCourseUnitItemBinding
+import com.bawano.semester.databinding.RvHeaderItemBinding
 import com.bawano.semester.utils.Utils
 import kotlinx.parcelize.Parcelize
 
@@ -21,6 +22,7 @@ class CourseUnit(
     var code: String = "",
     var description: String = "",
     var role: Tier = Tier.CORE,
+    var notes: ArrayList<String> = ArrayList(),
     var image: String = "",
 ) : Parcelable {
     val isEmpty: Boolean
@@ -29,7 +31,8 @@ class CourseUnit(
 
 object CourseUnitCallback : DiffUtil.ItemCallback<CourseUnit>() {
     override fun areItemsTheSame(oldItem: CourseUnit, newItem: CourseUnit) = oldItem == newItem
-    override fun areContentsTheSame(oldItem: CourseUnit, newItem: CourseUnit) = oldItem.code == newItem.code
+    override fun areContentsTheSame(oldItem: CourseUnit, newItem: CourseUnit) =
+        oldItem.code == newItem.code
 }
 
 enum class Tier {
@@ -41,16 +44,27 @@ enum class Grade {
 }
 
 class CourseUnitAdapter(fragment: Fragment) :
-    ListAdapter<CourseUnit, CourseUnitAdapter.CourseUnitViewHolder>(CourseUnitCallback) {
-    private var position:Int =0
+    ListAdapter<CourseUnit, RecyclerView.ViewHolder>(CourseUnitCallback) {
+    private var position: Int = 0
     private var courseUnitItemClick: Utils.OnCourseUnit
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= CourseUnitViewHolder.from(parent, courseUnitItemClick)
 
+    private val HEADER = 1
+    private val CU = 2
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+        CU -> CourseUnitViewHolder.from(parent, courseUnitItemClick)
+        else -> HeaderViewHolder.from(parent)
+    }
 
-    override fun onBindViewHolder(holder: CourseUnitViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is HeaderViewHolder -> holder.bind(getItem(position))
+            else -> (holder as CourseUnitViewHolder).bind(getItem(position))
+        }
         this.position = holder.adapterPosition
     }
+
+
+    override fun getItemViewType(position: Int) = if (getItem(position).isEmpty) HEADER else CU
 
     class CourseUnitViewHolder private constructor(
         b: RvCourseUnitItemBinding,
@@ -83,6 +97,27 @@ class CourseUnitAdapter(fragment: Fragment) :
             this.onCourseUnit = onCourseUnit
         }
     }
+
+    class HeaderViewHolder private constructor(b: RvHeaderItemBinding) :
+        RecyclerView.ViewHolder(b.root) {
+        private val b: RvHeaderItemBinding
+        fun bind(courseUnit: CourseUnit) {
+            b.headerTv.text = courseUnit.title
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): HeaderViewHolder {
+                val binding: RvHeaderItemBinding =
+                    RvHeaderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return HeaderViewHolder(binding)
+            }
+        }
+
+        init {
+            this.b = b
+        }
+    }
+
 
     init {
         courseUnitItemClick = fragment as Utils.OnCourseUnit

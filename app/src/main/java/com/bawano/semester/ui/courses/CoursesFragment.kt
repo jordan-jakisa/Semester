@@ -19,6 +19,7 @@ import com.bawano.semester.utils.Constants.COURSES
 import com.bawano.semester.utils.PreferenceManager
 import com.bawano.semester.utils.Utils
 import com.bawano.semester.utils.errorDialog
+import com.bawano.semester.utils.fadeOut
 import kotlinx.coroutines.launch
 
 class CoursesFragment : Fragment(), Utils.OnCourse {
@@ -78,7 +79,7 @@ class CoursesFragment : Fragment(), Utils.OnCourse {
                 }
 
                 b.shimmerLayout.stopShimmer()
-                b.shimmerLayout.visibility = View.GONE
+                b.shimmerLayout.fadeOut()
             }
         }
 

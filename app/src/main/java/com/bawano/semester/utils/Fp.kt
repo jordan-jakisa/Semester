@@ -16,9 +16,9 @@ import com.google.firebase.storage.StorageReference
 
 object Fp {
     //
-    fun database(): DatabaseReference = FirebaseDatabase.getInstance().reference
+    private fun database(): DatabaseReference = FirebaseDatabase.getInstance().reference
 
-    fun storage(): StorageReference = FirebaseStorage.getInstance().reference
+    private fun storage(): StorageReference = FirebaseStorage.getInstance().reference
 
     fun user(): FirebaseUser? = authInstance().currentUser
 
@@ -28,8 +28,8 @@ object Fp {
         storage().child(KYAMBOGO).child(ENGINEERING).child("$pdfName.pdf")
 
     fun courseUnitPath(courseUnit: CourseUnit) =
-        database().child(KYAMBOGO).child(COURSE_UNITS_NODE).child(courseUnit.courseCode!!)
-            .child(courseUnit.code!!)
+        database().child(KYAMBOGO).child(COURSE_UNITS_NODE).child(courseUnit.courseCode)
+            .child(courseUnit.code)
 
 
     fun courseUnitPath(courseCode: String, unitCode: String) =

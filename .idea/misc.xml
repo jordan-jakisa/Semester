@@ -35,7 +35,11 @@
         <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/layout/fragment_pdf_view.xml" value="0.1" />
         <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/layout/fragment_sign_in.xml" value="0.14056224899598393" />
         <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/layout/fragment_sign_up.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/layout/nav_header_main.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/layout/rv_course_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/layout/rv_course_unit_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/layout/rv_header_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/layout/rv_pdf_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/shins/StudioProjects/Semester/app/src/main/res/menu/activity_main_drawer.xml" value="0.22447916666666667" />
       </map>
     </option>

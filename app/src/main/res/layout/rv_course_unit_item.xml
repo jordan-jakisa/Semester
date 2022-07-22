@@ -29,7 +29,7 @@
                 android:layout_width="100dp"
                 android:layout_height="120dp"
                 android:scaleType="centerCrop"
-                setImage="@{CourseUnit.image}"
+                setImage="@{CourseUnit}"
                 tools:src="@drawable/control_systems"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/courseDetails"

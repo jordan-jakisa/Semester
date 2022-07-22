@@ -26,9 +26,10 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/courseIv"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                setImage = "@{Course.image}"
+                setImage = "@{Course}"
                 tools:src="@drawable/letter_t" />
 
 
@@ -38,6 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="4dp"
                 android:text="@{Course.title}"
@@ -48,6 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:text="@{Course.code}"
                 tools:text="Bachelors of Engineering in Telecommunications Engineering  TETE" />
 
@@ -56,6 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:text="@{Course.description}"
