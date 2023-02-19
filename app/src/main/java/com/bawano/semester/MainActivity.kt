@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), Utils.FragmentPage {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var b: ActivityMainBinding
-    private lateinit var lastPage: LastPage
+    private var lastPage: LastPage = LastPage()
 
     private lateinit var navController: NavController
 
@@ -56,8 +56,11 @@ class MainActivity : AppCompatActivity(), Utils.FragmentPage {
                         Constants.PDFVIEW -> R.id.pdfViewFragment
                         Constants.DETAILS -> R.id.detailsFragment
                         else -> R.id.nav_courses
+
                     }
                 )
+                lastPage = if (it.name.isEmpty()) LastPage()
+                else it
                 it.navState?.let { bundle ->
                     navController.restoreState(bundle)
                 }
@@ -85,11 +88,6 @@ class MainActivity : AppCompatActivity(), Utils.FragmentPage {
     }
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
-        // network is available for use
-        override fun onAvailable(network: Network) {
-            super.onAvailable(network)
-        }
-
         // Network capabilities have changed for the network
         override fun onCapabilitiesChanged(
             network: Network,
@@ -100,10 +98,6 @@ class MainActivity : AppCompatActivity(), Utils.FragmentPage {
                 networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
         }
 
-        // lost network connection
-        override fun onLost(network: Network) {
-            super.onLost(network)
-        }
     }
 
     override fun setLastPage(page: LastPage) {
