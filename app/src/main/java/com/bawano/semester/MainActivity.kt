@@ -6,24 +6,21 @@ import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.bawano.semester.databinding.ActivityMainBinding
 import com.bawano.semester.models.LastPage
-import com.bawano.semester.ui.home.HomeFragmentDirections
 import com.bawano.semester.utils.Constants
 import com.bawano.semester.utils.PreferenceManager
 import com.bawano.semester.utils.Utils
+import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -90,8 +87,7 @@ class MainActivity : AppCompatActivity(), Utils.FragmentPage {
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         // Network capabilities have changed for the network
         override fun onCapabilitiesChanged(
-            network: Network,
-            networkCapabilities: NetworkCapabilities
+            network: Network, networkCapabilities: NetworkCapabilities
         ) {
             super.onCapabilitiesChanged(network, networkCapabilities)
             val unMetered =
