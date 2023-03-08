@@ -52,8 +52,7 @@ class MainActivity : AppCompatActivity(), Utils.FragmentPage {
                         Constants.COURSES -> R.id.nav_courses
                         Constants.PDFVIEW -> R.id.pdfViewFragment
                         Constants.DETAILS -> R.id.detailsFragment
-                        else -> R.id.nav_courses
-
+                        else -> R.id.nav_home
                     }
                 )
                 lastPage = if (it.name.isEmpty()) LastPage()

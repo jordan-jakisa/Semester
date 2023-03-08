@@ -64,5 +64,9 @@
     <string name="name">Name</string>
     <string name="more">more</string>
     <string name="your_web_client_id">18094449466-76hgvaea0eigentec4q5i1f8jerdq444.apps.googleusercontent.com</string>
+    <string name="continue_your_reading">Continue Your Reading</string>
+    <string name="these_documents_are_quite_popular">These documents are quite popular</string>
+    <string name="suggested_content">Suggested Content</string>
+    <string name="video_recommendations">Video Recommendations</string>
 
 </resources>
