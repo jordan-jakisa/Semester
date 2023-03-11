@@ -25,6 +25,8 @@ android {
     buildTypes {
         debug{
             firebaseAppDistribution {
+                //todo: input path to service credentials file with permission to access firebase app distribution service
+                //serviceCredentialsFile="./app/tusome-service-credentials.json"
                 groups = "QA"
             }
         }
