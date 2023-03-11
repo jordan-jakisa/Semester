@@ -21,4 +21,4 @@ jobs:
       - name: Build with gradle
         run: ./gradlew assembleRelease appDistributionUploadRelease
         env:
-          SERVICE_CREDENTIALS_FILE: ${{ secrets.FIREBASE_PRIVATE_KEY_JSON }}
+          serviceCredentialsFile: ${{ secrets.FIREBASE_PRIVATE_KEY_JSON }}
