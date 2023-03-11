@@ -20,6 +20,7 @@ import com.bawano.semester.utils.PreferenceManager
 import com.bawano.semester.utils.Utils
 import com.bawano.semester.utils.errorDialog
 import com.bawano.semester.utils.fadeOut
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 class CoursesFragment : Fragment(), Utils.OnCourse {
@@ -64,23 +65,24 @@ class CoursesFragment : Fragment(), Utils.OnCourse {
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         b.recyclerView.scrollToPosition(scroll)
         lifecycleScope.launch {
-            vm.fetchCourses().collect {
-                when {
-                    it.isSuccess -> {
-                        val list = it.getOrNull()
-                        list?.let {
-                            courseAdapter.submitList(list)
+            vm.fetchCourses()
+                .collect {
+                    when {
+                        it.isSuccess -> {
+                            val list = it.getOrNull()
+                            list?.let {
+                                courseAdapter.submitList(list)
+                            }
                         }
+                        it.isFailure -> requireContext().errorDialog(
+                            "Couldn't Fetch Courses",
+                            (it.exceptionOrNull() ?: "Unknown error") as String
+                        )
                     }
-                    it.isFailure -> requireContext().errorDialog(
-                        "Couldn't Fetch Courses",
-                        (it.exceptionOrNull() ?: "Unknown error") as String
-                    )
-                }
 
-                b.shimmerLayout.stopShimmer()
-                b.shimmerLayout.fadeOut()
-            }
+                    b.shimmerLayout.stopShimmer()
+                    b.shimmerLayout.fadeOut()
+                }
         }
 
 

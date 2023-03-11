@@ -7,6 +7,8 @@ buildscript {
 //        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
         classpath 'com.google.gms:google-services:4.3.13'
+        classpath 'com.android.tools.build:gradle:3.4.0'
+        classpath 'com.google.firebase:firebase-appdistribution-gradle:4.0.0'
     }
 }
 

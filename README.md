@@ -1,6 +1,6 @@
 # Semester
 
-This is an app that will provide the students at Kyambogo Univeristy with notes for their previous, current and future semesters.
+This is an app that will provide the students at Kyambogo University with notes for their previous, current and future semesters.
 
 Heres what the app looks like
 

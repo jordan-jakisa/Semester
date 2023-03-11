@@ -1,9 +1,7 @@
 package com.bawano.semester.utils
 
-import android.R
 import android.app.AlertDialog
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
@@ -19,13 +17,10 @@ import androidx.core.view.ViewPropertyAnimatorListener
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.File
-import java.lang.reflect.Field
 import java.util.*
-
 
 const val RECORD_REQUEST = 1
 
@@ -60,16 +55,15 @@ fun Context.errorDialog(title: String, message: String) =
         .create()
         .show()
 
-fun String.onlyFirstLetters(): String{
+fun String.onlyFirstLetters(): String {
     val words = this.split(' ')
     var s = ""
-    for (w in words ) s += w.first()
+    for (w in words) s += w.first()
     return s.uppercase(Locale.getDefault())
 }
 
 fun String.letterDrawable() =
     TextDraw(this, color = ColorGenerator.MATERIAL.getColor(this))
-
 
 
 fun View.fadeIn(duration: Long = 400L, delay: Long = 0L) {
