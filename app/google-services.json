@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "18094449466",
+    "firebase_url": "https://tusome-9f6ca-default-rtdb.firebaseio.com",
+    "project_id": "tusome-9f6ca",
+    "storage_bucket": "tusome-9f6ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18094449466:android:21730408616278bf91a603",
+        "android_client_info": {
+          "package_name": "com.bawano.semester"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18094449466-o1ohv8ifs5snc8iqqisuns0idek7e4o1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bawano.semester",
+            "certificate_hash": "4497ba3e0b28d854b946d9675da8be62c43c9aa1"
+          }
+        },
+        {
+          "client_id": "18094449466-76hgvaea0eigentec4q5i1f8jerdq444.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnD0olxe1QyLTb35Czw6hTrmdhpEFqo-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18094449466-76hgvaea0eigentec4q5i1f8jerdq444.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18094449466:android:5d11d4906fb7cacf91a603",
+        "android_client_info": {
+          "package_name": "com.bawano.tusome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18094449466-76hgvaea0eigentec4q5i1f8jerdq444.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnD0olxe1QyLTb35Czw6hTrmdhpEFqo-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18094449466-76hgvaea0eigentec4q5i1f8jerdq444.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
