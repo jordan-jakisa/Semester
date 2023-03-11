@@ -17,7 +17,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
         
-      - name: Build and deploy debug
-        run: ./gradlew assembleDebug appDistributionUploadDebug
-        env:
-          serviceCredentialsFile: ${{ secrets.FIREBASE_PRIVATE_KEY_JSON }}
+      - name: Authenticate with Firebase
+        uses: google-github-actions/auth@main
+        with:
+          credentials-file: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+      - name: Build with gradle
+        run: ./gradlew assembleRelease serviceCredentialFile = ${{ secrets.FIREBASE_PRIVATE_KEY_JSON }}
